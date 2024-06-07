@@ -17,3 +17,6 @@
 - node.js v21.6.1
 - vue 3 (Composition API, v-for, v-model, v-on, v-if, v-bind, computed, reactivity)
 - JS + html + CSS
+
+![todo-list-scr-1](/readme-images/todo-list-scr-1.jpg?raw=true "todo-list-scr-1")
+![todo-list-scr-2](/readme-images/todo-list-scr-2.jpg?raw=true "todo-list-scr-2")
