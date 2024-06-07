@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const header = ref("Todo List")
 const items = ref([
@@ -11,21 +11,38 @@ const newItemTime = ref("")
 const newItemLabel = ref("")
 const newItemHighPriority = ref(false)
 const isEditing = ref(false)
+
 const addNewItem = () => {
     items.value.push({ id: items.value.length+1, time: newItemTime.value, label: newItemLabel.value, isHighPriority: newItemHighPriority.value }),
     newItemTime.value = "",
     newItemLabel.value = "",
     newItemHighPriority.value = false
 }
+
 const doEdit = (e) => {
     isEditing.value = e,
     newItemTime.value = "",
     newItemLabel.value = "",
     newItemHighPriority.value = false
 }
+
 const toggleDone = (item) => {
     item.isDone = !item.isDone
 }
+
+const sortedItems = computed(() => {
+    return [...items.value].sort((a, b) => {
+        const timeA = a.time;
+        const timeB = b.time;
+        if (timeA < timeB) {
+            return -1;
+        }
+        if (timeA > timeB) {
+            return 1;
+        }
+        return 0; // equal
+    })
+})
 </script>
 
 <template>
@@ -58,7 +75,7 @@ const toggleDone = (item) => {
         <div class="todo-list-list">
             <ul>
                 <li 
-                    v-for="item in items" 
+                    v-for="item in sortedItems" 
                     :key="item.id"
                     :class="{ 'todo-list-item-done': item.isDone, 'todo-list-item-high-priority': item.isHighPriority }" 
                     @click="toggleDone(item)" 
